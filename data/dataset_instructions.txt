@@ -1,0 +1,126 @@
+# Dataset Instructions for Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+
+## Overview
+
+This study uses one benchmark dataset and one custom benchmark:
+
+1. HumanEval         : 164 Python programming tasks for code generation evaluation
+2. Long-Horizon Benchmark : A custom controlled benchmark designed in this work
+                            (fully procedural — no download required, see Section 2)
+
+---
+
+## 1. HumanEval
+
+### Source
+- Paper  : Chen et al., "Evaluating Large Language Models Trained on Code", arXiv:2107.03374, 2021
+- Dataset: https://github.com/openai/human-eval
+
+### What is already included
+The file HumanEval.jsonl.gz is included in the root of this repository.
+No manual download is required.
+
+### Dataset details
+- Total tasks used : 164 (full HumanEval test set)
+- Task format      : Function signature + docstring + hidden test suite
+- Topics covered   : String manipulation, mathematical computation,
+                     sorting, data structures
+- Evaluation       : ObjectiveCodeEvaluator runs each solution in an
+                     isolated subprocess with a 10-second timeout
+
+### Task format (each entry in HumanEval.jsonl.gz)
+Each task is a JSON object with the following fields:
+
+  task_id            : Unique identifier (e.g. "HumanEval/0")
+  prompt             : Function signature and docstring
+  entry_point        : Function name to be implemented
+  canonical_solution : Reference solution (not used during evaluation)
+  test               : Test suite code
+
+### Loading the dataset
+The HumanEvalLoader in reflexion/benchmarks/humaneval.py handles
+loading automatically:
+
+  from reflexion.benchmarks import HumanEvalLoader
+  tasks = HumanEvalLoader.load_from_file('HumanEval.jsonl.gz', num_samples=164)
+
+To run on a subset (e.g. for a quick smoke test):
+
+  tasks = HumanEvalLoader.load_from_file('HumanEval.jsonl.gz', num_samples=10)
+
+### If you need to re-download HumanEval.jsonl.gz
+  wget https://github.com/openai/human-eval/raw/master/data/HumanEval.jsonl.gz
+
+  Or with curl:
+  curl -L -o HumanEval.jsonl.gz \
+    https://github.com/openai/human-eval/raw/master/data/HumanEval.jsonl.gz
+
+---
+
+## 2. Long-Horizon Memory Benchmark (Custom)
+
+### Overview
+This benchmark was designed specifically for this work to isolate memory
+architecture effects. It is fully procedural and deterministic — there is
+nothing to download.
+
+The benchmark is generated at runtime by the experiment scripts in
+experiments/extension1_vector_memory/.
+
+### Structure
+Total tasks  : 13 tasks across 5 sessions
+Distractor tasks: 9
+
+| Session | Tasks | Purpose                                      |
+|---------|-------|----------------------------------------------|
+| S1      | 2     | Learning — stores chunking pattern in memory |
+| S2–S4   | 9     | Distractors — floods and overflows FIFO buffer|
+| S5      | 2     | Recall — requires both S1 learnings simultaneously |
+
+### Task details by session
+
+Session 1 (Learning):
+  - Two custom string-transformation tasks involving list chunking
+  - Agent stores reflections about chunking patterns in memory
+  - These reflections are the target of recall in Session 5
+
+Sessions 2–4 (Distractors, 3 per session):
+  - Fibonacci number computation
+  - Palindrome detection
+  - Vowel counting
+  - Chosen to be semantically unrelated to Session 1
+  - Sufficient to fill and overflow a size-10 FIFO buffer
+
+Session 5 (Recall):
+  - Composite task requiring BOTH Session-1 learnings simultaneously
+  - Success requires memory to surface Session-1 reflections
+    despite 9 intervening distractor reflections
+
+### Why this benchmark exists
+After 9 distractor tasks, a size-10 FIFO buffer has completely evicted
+the two Session-1 reflections. This creates a deterministic failure
+condition for TemporalMemory (0% recall, zero variance across all trials)
+while VectorEpisodicMemory succeeds via cosine-similarity retrieval
+regardless of recency (100% recall, zero variance across all trials).
+
+### Evaluation metrics
+  - Dependency recall rate : fraction of Session-5 tasks solved
+  - Session-5 success rate : overall success on recall tasks
+  - Avg memories retrieved  : mean number of memories returned per query
+  - Avg retrieval latency   : mean time per retrieval call in ms
+
+### Running the benchmark
+  cd experiments/extension1_vector_memory
+  python run_long_horizon_benchmark.py
+
+Results are saved to results/extension1b_long_horizon.json
+
+---
+
+## Data Integrity Notes
+
+- HumanEval.jsonl.gz is the original unmodified file from OpenAI
+- No preprocessing, filtering, or normalization was applied to HumanEval
+- The long-horizon benchmark is fully deterministic given the fixed task
+  sequence — results are reproducible without any random seed
+- All 164 HumanEval tasks are used; no tasks were excluded

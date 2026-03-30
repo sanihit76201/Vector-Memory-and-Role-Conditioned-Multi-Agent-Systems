@@ -1,0 +1,151 @@
+{
+  "dataset": "HumanEval",
+  "num_tasks": 10,
+  "task_ids": [
+    "HumanEval/0",
+    "HumanEval/1",
+    "HumanEval/2",
+    "HumanEval/3",
+    "HumanEval/4",
+    "HumanEval/5",
+    "HumanEval/6",
+    "HumanEval/7",
+    "HumanEval/8",
+    "HumanEval/9"
+  ],
+  "results": {
+    "modular_baseline": [
+      {
+        "task_id": "HumanEval/0",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/1",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/2",
+        "success": true,
+        "trials": 1,
+        "code": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    return number - int(number)",
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/3",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/4",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/5",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/6",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/7",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/8",
+        "success": true,
+        "trials": 1,
+        "code": "from typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -> Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    >>> sum_product([])\n    (0, 1)\n    >>> sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n    if not numbers:\n        return (0, 1)\n\n    total_sum = 0\n    total_product = 1\n\n    for num in numbers:\n        total_sum += num\n        total_product *= num\n\n    return (total_sum, total_product)",
+        "agent_type": "Modular_Baseline"
+      },
+      {
+        "task_id": "HumanEval/9",
+        "success": true,
+        "trials": 1,
+        "code": "from typing import List, Tuple\n\n\ndef rolling_max(numbers: List[int]) -> List[int]:\n    \"\"\" From a given list of integers, generate a list of rolling maximum element found until given moment\n    in the sequence.\n    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])\n    [1, 2, 3, 3, 3, 4, 4]\n    \"\"\"\n    if not numbers:\n        return []\n\n    result = []\n    current_max = numbers[0]\n    for num in numbers:\n        if num > current_max:\n            current_max = num\n        result.append(current_max)\n    return result",
+        "agent_type": "Modular_Baseline"
+      }
+    ],
+    "original_working": [
+      {
+        "task_id": "HumanEval/0",
+        "success": true,
+        "trials": 1,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/1",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/2",
+        "success": true,
+        "trials": 1,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/3",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/4",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/5",
+        "success": true,
+        "trials": 2,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/6",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/7",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/8",
+        "success": true,
+        "trials": 2,
+        "agent_type": "Original_Working"
+      },
+      {
+        "task_id": "HumanEval/9",
+        "success": false,
+        "trials": 3,
+        "agent_type": "Original_Working"
+      }
+    ]
+  },
+  "summary": {
+    "modular_pass3": "3/10 (30.0%)",
+    "original_pass3": "4/10 (40.0%)",
+    "performance_gap": "1/10 (10.0%)",
+    "winner": "Original_Working"
+  }
+}

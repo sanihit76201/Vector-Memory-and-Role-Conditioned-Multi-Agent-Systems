@@ -1,0 +1,39 @@
+# Memory Efficiency Scaling Benchmark
+# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+# Results: Both methods empirically flat latency; Vector ~14ms constant overhead
+
+# Model (used only for embedding, no LLM calls in this benchmark)
+model: "google/gemini-2.5-flash"
+api_base: "https://openrouter.ai/api/v1"
+
+# Benchmark structure
+benchmark: "memory_efficiency"
+pool_sizes:
+  - 100
+  - 500
+  - 1000
+  - 5000
+  - 10000
+  - 50000
+timing_runs_per_size: 5      # 5 timed runs per pool size after warm-up
+timer: "time.perf_counter"   # microsecond resolution
+
+# TemporalMemory config
+temporal_memory_top_k: 5
+
+# VectorEpisodicMemory config
+vector_memory_encoder: "all-MiniLM-L6-v2"
+vector_memory_embedding_dim: 384
+vector_memory_top_k: 5
+
+# Query used for all retrieval timing measurements
+retrieval_query: "How to chunk large dataset?"
+
+# Metrics reported
+metrics:
+  - retrieval_latency_ms_mean   # mean latency per pool size
+  - retrieval_latency_ms_std    # std deviation per pool size
+  - scaling_slope               # ms per additional entry (should be ~0)
+
+# Output
+output_file: "results/extension2_memory_efficiency.json"

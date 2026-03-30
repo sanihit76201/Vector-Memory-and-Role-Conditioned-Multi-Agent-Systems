@@ -1,0 +1,94 @@
+# Hardware Notes for Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+
+## Primary Experiment Hardware
+
+All experiments were run on a standard CPU machine.
+No GPU acceleration was used for embedding generation or memory retrieval.
+
+- Embedding backend : Sentence-BERT all-MiniLM-L6-v2 on CPU (PyTorch)
+- Encoding time     : ~5 ms per reflection on CPU
+- Retrieval time    : ~14 ms constant up to 50,000 pool entries (NumPy brute-force)
+
+---
+
+## LLM Infrastructure
+
+All LLM inference uses Google Gemini 2.5 Flash via OpenRouter API.
+No local GPU is required for LLM calls — inference is fully remote.
+
+- Model             : google/gemini-2.5-flash (via OpenRouter)
+- Inter-request delay: 0.5 s (rate limiting)
+- Typical LLM latency: >= 500 ms per call
+- Vector retrieval overhead: < 2.8% of LLM call latency
+
+---
+
+## Memory Requirements by Configuration
+
+| Agent                  | LLM Calls/Trial | Avg. Trials | Calls/Task | Est. Cost/Task |
+|------------------------|-----------------|-------------|------------|----------------|
+| ModularBaseline        | 1               | 1.10        | 1.10       | $0.0003        |
+| VectorReflexion (E1)   | 1               | 1.09        | 1.09       | $0.0003        |
+| MultiAgentReflexion (E2)| 3              | 1.03        | 3.09       | $0.0008        |
+
+For 164 HumanEval tasks:
+- ModularBaseline   : ~180 total LLM calls
+- VectorReflexion   : ~179 total LLM calls
+- MultiAgentReflexion: ~507 total LLM calls
+
+---
+
+## Retrieval Latency (VectorEpisodicMemory)
+
+Measured across pool sizes with 5 timed runs per size after warm-up,
+using time.perf_counter() at microsecond resolution.
+
+| Pool Size | Temporal (ms) | Vector (ms) | ± σ     |
+|-----------|---------------|-------------|---------|
+| 100       | 0.001         | 17.6        | ± 11.6  |
+| 500       | 0.001         | 13.8        | ± 0.08  |
+| 1,000     | 0.001         | 14.0        | ± 0.50  |
+| 5,000     | 0.001         | 13.7        | ± 0.31  |
+| 10,000    | 0.003         | 14.4        | ± 1.05  |
+| 50,000    | 0.004         | 12.2        | ± 0.96  |
+| Average   | 0.002         | 14.3        | —       |
+
+Latency is empirically flat across 500x pool growth. NumPy constant overhead
+dominates over the linear scan for pool sizes typical of Reflexion deployments.
+Beyond ~500,000 entries, an ANN index (e.g. FAISS) would be worth the overhead.
+
+---
+
+## Minimum Requirements to Run This Repo
+
+- Hardware  : Any modern CPU (no GPU required)
+- RAM       : 8 GB recommended (model weights + embedding model ~90 MB)
+- Storage   : ~500 MB (embedding model auto-downloaded on first run)
+- Python    : 3.9+
+- API access: OpenRouter API key with access to google/gemini-2.5-flash
+
+---
+
+## Expected Runtimes (164 HumanEval Tasks)
+
+Estimated wall-clock time at 0.5 s inter-request delay:
+
+| Agent                   | Estimated Time |
+|-------------------------|----------------|
+| ModularBaseline         | ~1.5 hours     |
+| VectorReflexion (E1)    | ~1.5 hours     |
+| MultiAgentReflexion (E2)| ~4.5 hours     |
+
+Times will vary with API response latency and network conditions.
+Rate limit delay can be adjusted via RATE_LIMIT_DELAY in .env.
+
+---
+
+## Notes
+
+- Embedding model (all-MiniLM-L6-v2, ~90 MB) is downloaded automatically
+  from HuggingFace on first run. Subsequent runs use the cached version.
+- For the HumanEval evaluation, VectorEpisodicMemory max_size was set to
+  2,000 to accommodate the full reflection budget of 164 x 3 x 3 = 1,476
+  role-prefixed entries. Default is 1,000 for all other experiments.
+- All experiments used a subprocess timeout of 10 s for code evaluation.

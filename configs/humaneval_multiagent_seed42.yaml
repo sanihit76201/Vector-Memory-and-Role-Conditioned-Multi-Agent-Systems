@@ -1,0 +1,45 @@
+# Extension 2: MultiAgentReflexion — HumanEval (164 tasks)
+# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+# Results: Pass@3 = 96.3%, Pass@1 = 93.9%, Avg Trials = 1.03
+# Stats:   t = 3.746, p < 0.001***, d = 0.301 vs ModularBaseline
+
+# Model
+model: "google/gemini-2.5-flash"
+api_base: "https://openrouter.ai/api/v1"
+max_tokens: 2048
+temperature: 0.7
+
+# Rate limiting and retry
+inter_request_delay_s: 0.5
+max_retries: 5
+initial_backoff_s: 5.0
+backoff_factor: 2.5
+request_timeout_s: 120
+
+# Agent
+agent: "MultiAgentReflexion"
+max_trials: 3
+agents:
+  - Generator    # produces candidate code c
+  - Critic       # reviews c, identifies flaws (no code generation)
+  - Verifier     # synthesises final code c* from c + critique
+
+# Shared Memory Pool (VectorEpisodicMemory, shared across all 3 agents)
+memory_type: "vector"
+memory_encoder: "all-MiniLM-L6-v2"
+memory_embedding_dim: 384
+memory_max_size: 2000        # set to 2000 for HumanEval (164 x 3 x 3 = 1476 max entries)
+memory_top_k: 3              # k=3 per agent
+memory_eviction: "none"      # pool is capped, not evicted
+memory_role_prefix: true     # reflections tagged [Generator], [Critic], [Verifier]
+
+# Dataset
+dataset: "humaneval"
+num_tasks: 164
+subprocess_timeout_s: 10
+
+# Reproducibility
+seed: 42
+
+# Output
+output_file: "results/seed_runs/multiagent_seed42.json"

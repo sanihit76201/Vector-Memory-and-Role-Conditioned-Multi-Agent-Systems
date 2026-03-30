@@ -1,0 +1,54 @@
+# Aggregated Results — Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+# Paper: Transactions on Machine Learning Research (2026)
+# Author: Dagani Jesu Sanihit, Manipal Institute of Technology
+#
+# Source: Computed from raw result JSON files in results/seed_runs/
+# Reproduce using: bash scripts/reproduce_all.sh
+#
+# NOTE on Extension 1 (VectorReflexion):
+#   extension1_vector_agent.json contains a 10-task smoke-test run.
+#   The full 164-task vector results are reported from the paper (Table 4).
+#   To regenerate: python experiments/run_comparison.py --extension vector --tasks 164
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TABLE 4: HumanEval Performance (164 tasks, Gemini 2.5 Flash)
+# Source: extension2_multiagent_agent.json (164 tasks, verified against paper)
+# ──────────────────────────────────────────────────────────────────────────────
+
+benchmark,agent,num_tasks,pass_at_3_pct,pass_at_1_pct,avg_trials,recovery_rate_pct,llm_calls_per_trial,llm_calls_per_task,cost_per_task_usd,source
+humaneval,ModularBaseline,164,88.4,84.1,1.06,26.9,1,1.10,0.0003,extension2_multiagent_agent.json
+humaneval,Original,164,92.7,82.3,1.15,58.6,1,1.10,0.0003,extension2_multiagent_agent.json
+humaneval,VectorReflexion,164,92.7,87.2,1.09,42.9,1,1.09,0.0003,paper_table4
+humaneval,MultiAgentReflexion,164,96.3,93.9,1.03,40.0,3,3.09,0.0008,extension2_multiagent_agent.json
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TABLE 5: Statistical Validation (vs ModularBaseline, 164 paired observations)
+# Source: Computed from extension2_multiagent_agent.json + paper Table 5
+# ──────────────────────────────────────────────────────────────────────────────
+
+benchmark,comparison,delta_pass_at_3_pp,t_statistic,p_value,cohens_d,significant,ci_baseline_lo_pct,ci_baseline_hi_pct,ci_extension_lo_pct,ci_extension_hi_pct
+humaneval,E1_vs_Baseline,+3.7,2.144,0.033,0.127,True,84.2,93.9,88.7,96.7
+humaneval,E2_vs_Baseline,+7.9,3.746,0.0002,0.293,True,84.2,93.9,93.4,99.2
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TABLE 2: Long-Horizon Memory Benchmark (3 independent trials, zero variance)
+# Source: paper Table 2 — run extension1_vector_memory/run_long_horizon_benchmark.py
+# ──────────────────────────────────────────────────────────────────────────────
+
+benchmark,agent,dependency_recall_pct,session5_success_pct,avg_memories_retrieved,avg_retrieval_latency_ms,sigma
+long_horizon,TemporalMemory,50.0,0.0,4.2,0.0,0.0
+long_horizon,VectorEpisodicMemory,100.0,100.0,4.2,14.3,0.0
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TABLE 3: Memory Efficiency — Retrieval Latency vs Pool Size
+# Source: paper Table 3 — run extension1_vector_memory/run_memory_efficiency.py
+# ──────────────────────────────────────────────────────────────────────────────
+
+benchmark,pool_size,temporal_latency_ms,vector_latency_ms,vector_sigma_ms
+memory_efficiency,100,0.001,17.6,11.6
+memory_efficiency,500,0.001,13.8,0.08
+memory_efficiency,1000,0.001,14.0,0.50
+memory_efficiency,5000,0.001,13.7,0.31
+memory_efficiency,10000,0.003,14.4,1.05
+memory_efficiency,50000,0.004,12.2,0.96
+memory_efficiency,average,0.002,14.3,0.0

@@ -1,0 +1,40 @@
+# Extension 1: VectorReflexion — HumanEval (164 tasks)
+# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+# Results: Pass@3 = 92.7%, Pass@1 = 87.2%, Avg Trials = 1.09
+# Stats:   t = 2.144, p = 0.033*, d = 0.127 vs ModularBaseline
+
+# Model
+model: "google/gemini-2.5-flash"
+api_base: "https://openrouter.ai/api/v1"
+max_tokens: 2048
+temperature: 0.7
+
+# Rate limiting and retry
+inter_request_delay_s: 0.5
+max_retries: 5
+initial_backoff_s: 5.0
+backoff_factor: 2.5
+request_timeout_s: 120
+
+# Agent
+agent: "VectorReflexion"
+max_trials: 3
+
+# Memory (VectorEpisodicMemory)
+memory_type: "vector"
+memory_encoder: "all-MiniLM-L6-v2"
+memory_embedding_dim: 384
+memory_max_size: 2000        # set to 2000 for HumanEval (164 x 3 x 1 = 492 max entries)
+memory_top_k: 5              # increased from base k=3 for richer context
+memory_eviction: "none"      # pool is capped, not evicted
+
+# Dataset
+dataset: "humaneval"
+num_tasks: 164
+subprocess_timeout_s: 10
+
+# Reproducibility
+seed: 42
+
+# Output
+output_file: "results/seed_runs/vector_seed42.json"

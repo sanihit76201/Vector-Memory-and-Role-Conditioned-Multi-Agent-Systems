@@ -1,0 +1,45 @@
+name: reflexion
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  # Python version
+  - python=3.9
+
+  # LLM API calls (Gemini 2.5 Flash via OpenRouter)
+  # Uses requests.Session with HTTPAdapter + urllib3 Retry strategy
+  - requests>=2.31.0
+  - urllib3>=2.0.0
+
+  # Numerical computation (arrays, argsort, mean across all agents)
+  - numpy>=1.26.0,<2.0.0
+
+  # Vector similarity search (cosine_similarity in VectorEpisodicMemory)
+  - scikit-learn>=1.4.0
+
+  # Statistical validation (paired t-test, Cohen's d, 95% CIs)
+  - scipy>=1.13.0
+
+  # Result aggregation and analysis
+  - pandas>=2.0.0
+
+  # Experiment configuration
+  - pyyaml>=6.0
+
+  # Progress display
+  - tqdm>=4.60.0
+
+  # Visualization — efficiency plots and result figures
+  - matplotlib>=3.7.0
+  - seaborn>=0.12.0
+
+  # Interactive notebook (reflexion_framework.ipynb)
+  - jupyter>=1.0.0
+  - notebook>=7.0.0
+  - ipykernel>=6.0.0
+
+  # pip-only packages (not available on conda-forge)
+  - pip
+  - pip:
+    # Semantic embeddings — all-MiniLM-L6-v2 (384-dim, ~90MB, auto-downloaded)
+    - sentence-transformers>=2.7.0

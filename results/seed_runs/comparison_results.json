@@ -1,0 +1,300 @@
+{
+  "dataset": "HumanEval",
+  "num_tasks": 20,
+  "baseline_results": [
+    {
+      "task_id": "HumanEval/0",
+      "success": true,
+      "trials": 1,
+      "code": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    n = len(numbers)\n    for i in range(n):\n        for j in range(i + 1, n):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "success": false,
+      "trials": 3,
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "success": true,
+      "trials": 1,
+      "code": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    return number - int(number)",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/3",
+      "success": true,
+      "trials": 3,
+      "code": "from typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "success": true,
+      "trials": 1,
+      "code": "import math\nfrom typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n    if not numbers:\n        return 0.0\n\n    mean = sum(numbers) / len(numbers)\n    mad = sum(abs(x - mean) for x in numbers) / len(numbers)\n    return mad",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/5",
+      "success": false,
+      "trials": 3,
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/6",
+      "success": true,
+      "trials": 3,
+      "code": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n    results = []\n    groups = paren_string.split(' ')\n\n    for group in groups:\n        max_depth = 0\n        current_depth = 0\n        for char in group:\n            if char == '(':\n                current_depth += 1\n                max_depth = max(max_depth, current_depth)\n            elif char == ')':\n                current_depth -= 1\n        results.append(max_depth)\n    return results",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/7",
+      "success": true,
+      "trials": 3,
+      "code": "from typing import List\n\n\ndef filter_by_substring(strings: List[str], substring: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that contain given substring\n    >>> filter_by_substring([], 'a')\n    []\n    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')\n    ['abc', 'bacd', 'array']\n    \"\"\"\n    return [s for s in strings if substring in s]",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/8",
+      "success": true,
+      "trials": 1,
+      "code": "from typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -> Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    >>> sum_product([])\n    (0, 1)\n    >>> sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n    total_sum = 0\n    total_product = 1\n\n    for num in numbers:\n        total_sum += num\n        total_product *= num\n\n    return (total_sum, total_product)",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/9",
+      "success": true,
+      "trials": 1,
+      "code": "from typing import List, Tuple\n\n\ndef rolling_max(numbers: List[int]) -> List[int]:\n    \"\"\" From a given list of integers, generate a list of rolling maximum element found until given moment\n    in the sequence.\n    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])\n    [1, 2, 3, 3, 3, 4, 4]\n    \"\"\"\n    if not numbers:\n        return []\n\n    rolling_max_list = []\n    current_max = float('-inf')\n\n    for num in numbers:\n        current_max = max(current_max, num)\n        rolling_max_list.append(current_max)\n\n    return rolling_max_list",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/10",
+      "success": true,
+      "trials": 1,
+      "code": "def is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n    if not string:\n        return \"\"\n\n    n = len(string)\n    for i in range(n):\n        suffix = string[i:]\n        if is_palindrome(suffix):\n            prefix_to_reverse = string[:i]\n            return string + prefix_to_reverse[::-1]\n    return string",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/11",
+      "success": true,
+      "trials": 3,
+      "code": "def string_xor(a: str, b: str) -> str:\n    \"\"\" Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n    result = \"\"\n    for i in range(len(a)):\n        if a[i] == b[i]:\n            result += \"0\"\n        else:\n            result += \"1\"\n    return result",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/12",
+      "success": true,
+      "trials": 1,
+      "code": "from typing import List, Optional\n\n\ndef longest(strings: List[str]) -> Optional[str]:\n    \"\"\" Out of list of strings, return the longest one. Return the first one in case of multiple\n    strings of the same length. Return None in case the input list is empty.\n    >>> longest([])\n\n    >>> longest(['a', 'b', 'c'])\n    'a'\n    >>> longest(['a', 'bb', 'ccc'])\n    'ccc'\n    \"\"\"\n    if not strings:\n        return None\n\n    longest_string = strings[0]\n    for s in strings[1:]:\n        if len(s) > len(longest_string):\n            longest_string = s\n    return longest_string",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/13",
+      "success": true,
+      "trials": 1,
+      "code": "def greatest_common_divisor(a: int, b: int) -> int:\n    \"\"\" Return a greatest common divisor of two integers a and b\n    >>> greatest_common_divisor(3, 5)\n    1\n    >>> greatest_common_divisor(25, 15)\n    5\n    \"\"\"\n    while b:\n        a, b = b, a % b\n    return a",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/14",
+      "success": false,
+      "trials": 3,
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/15",
+      "success": true,
+      "trials": 1,
+      "code": "def string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n    return ' '.join(str(i) for i in range(n + 1))",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/16",
+      "success": true,
+      "trials": 1,
+      "code": "def count_distinct_characters(string: str) -> int:\n    \"\"\" Given a string, find out how many distinct characters (regardless of case) does it consist of\n    >>> count_distinct_characters('xyzXYZ')\n    3\n    >>> count_distinct_characters('Jerry')\n    4\n    \"\"\"\n    if not string:\n        return 0\n    \n    seen_characters = set()\n    for char in string:\n        seen_characters.add(char.lower())\n    return len(seen_characters)",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/17",
+      "success": true,
+      "trials": 3,
+      "code": "from typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\"\n    if not music_string:\n        return []\n\n    beats_map = {\n        'o': 4,\n        'o|': 2,\n        '.|': 1\n    }\n\n    notes = music_string.split(' ')\n    result = []\n    for note in notes:\n        if note in beats_map:\n            result.append(beats_map[note])\n    return result",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/18",
+      "success": true,
+      "trials": 2,
+      "code": "import re\n\ndef how_many_times(string: str, substring: str) -> int:\n    \"\"\" Find how many times a given substring can be found in the original string. Count overlaping cases.\n    >>> how_many_times('', 'a')\n    0\n    >>> how_many_times('aaa', 'a')\n    3\n    >>> how_many_times('aaaa', 'aa')\n    3\n    \"\"\"\n    if not substring:\n        return 0\n    return len(re.findall(f'(?={re.escape(substring)})', string))",
+      "agent_type": "Baseline_Temporal"
+    },
+    {
+      "task_id": "HumanEval/19",
+      "success": true,
+      "trials": 1,
+      "code": "def sort_numbers(numbers: str) -> str:\n    \"\"\" Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\n    >>> sort_numbers('three one five')\n    'one three five'\n    \"\"\"\n    word_to_num = {\n        'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,\n        'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9\n    }\n    num_to_word = {\n        0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four',\n        5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'\n    }\n\n    if not numbers:\n        return \"\"\n\n    # Split the input string into a list of number words\n    number_words = numbers.split()\n\n    # Convert words to numbers for sorting\n    numeric_values = [word_to_num[word] for word in number_words if word in word_to_num]\n\n    # Sort the numeric values\n    numeric_values.sort()\n\n    # Convert sorted numeric values back to words\n    sorted_number_words = [num_to_word[num] for num in numeric_values]\n\n    # Join the sorted words back into a space-delimited string\n    return ' '.join(sorted_number_words)",
+      "agent_type": "Baseline_Temporal"
+    }
+  ],
+  "optimized_results": [
+    {
+      "task_id": "HumanEval/0",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "success": true,
+      "trials": 1,
+      "code": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    if not isinstance(number, (int, float)):\n        raise TypeError(\"Input must be a number.\")\n    if number < 0:\n        raise ValueError(\"Input must be a positive number.\")\n    \n    return number - int(number)",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/3",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/5",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/6",
+      "success": true,
+      "trials": 3,
+      "code": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n    if not paren_string:\n        return []\n\n    groups = paren_string.split(' ')\n    result = []\n\n    for group in groups:\n        max_depth = 0\n        current_depth = 0\n        for char in group:\n            if char == '(':\n                current_depth += 1\n                max_depth = max(max_depth, current_depth)\n            elif char == ')':\n                current_depth -= 1\n        result.append(max_depth)\n\n    return result",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/7",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/8",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/9",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/10",
+      "success": true,
+      "trials": 3,
+      "code": "def is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n    if not string:\n        return \"\"\n\n    n = len(string)\n    for i in range(n):\n        if is_palindrome(string[i:]):\n            # string[i:] is the longest palindromic suffix\n            # string[:i] is the prefix that needs to be reversed and appended\n            prefix_to_reverse = string[:i]\n            return string + prefix_to_reverse[::-1]\n    \n    # This case should ideally not be reached if the loop logic is correct,\n    # as at least the last character is a palindrome.\n    # However, as a fallback, if no palindromic suffix is found (which means\n    # the entire string is not a palindrome and no suffix is),\n    # we would reverse the entire string except the last character and append.\n    # But the loop ensures that even a single character is a palindrome, so i will be at most n-1.\n    # If the entire string is not a palindrome, the loop will find the smallest\n    # i such that string[i:] is a palindrome (e.g., the last character itself).\n    return string + string[:-1][::-1]",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/11",
+      "success": true,
+      "trials": 3,
+      "code": "def string_xor(a: str, b: str) -> str:\n    \"\"\" Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n    if not isinstance(a, str) or not isinstance(b, str):\n        raise TypeError(\"Inputs must be strings.\")\n    if not a and not b:\n        return \"\"\n    if not a:\n        return b\n    if not b:\n        return a\n\n    if len(a) != len(b):\n        # Pad the shorter string with leading zeros to match the length of the longer string\n        max_len = max(len(a), len(b))\n        a = a.zfill(max_len)\n        b = b.zfill(max_len)\n\n    result = []\n    for char_a, char_b in zip(a, b):\n        if char_a not in ('0', '1') or char_b not in ('0', '1'):\n            raise ValueError(\"Input strings must consist only of '0's and '1's.\")\n        if char_a == char_b:\n            result.append('0')\n        else:\n            result.append('1')\n    return \"\".join(result)",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/12",
+      "success": true,
+      "trials": 1,
+      "code": "from typing import List, Optional\n\n\ndef longest(strings: List[str]) -> Optional[str]:\n    \"\"\" Out of list of strings, return the longest one. Return the first one in case of multiple\n    strings of the same length. Return None in case the input list is empty.\n    >>> longest([])\n\n    >>> longest(['a', 'b', 'c'])\n    'a'\n    >>> longest(['a', 'bb', 'ccc'])\n    'ccc'\n    \"\"\"\n    if not strings:\n        return None\n    \n    longest_string = strings[0]\n    for s in strings:\n        if len(s) > len(longest_string):\n            longest_string = s\n            \n    return longest_string",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/13",
+      "success": true,
+      "trials": 2,
+      "code": "def greatest_common_divisor(a: int, b: int) -> int:\n    \"\"\" Return a greatest common divisor of two integers a and b\n    >>> greatest_common_divisor(3, 5)\n    1\n    >>> greatest_common_divisor(25, 15)\n    5\n    \"\"\"\n    if not isinstance(a, int) or not isinstance(b, int):\n        raise TypeError(\"Inputs must be integers.\")\n\n    # Handle negative numbers by taking their absolute value\n    a = abs(a)\n    b = abs(b)\n\n    # Euclidean algorithm\n    while b:\n        a, b = b, a % b\n    return a",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/14",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/15",
+      "success": true,
+      "trials": 1,
+      "code": "def string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n    if not isinstance(n, int):\n        raise TypeError(\"Input must be an integer.\")\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n\n    return \" \".join(str(i) for i in range(n + 1))",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/16",
+      "success": true,
+      "trials": 1,
+      "code": "def count_distinct_characters(string: str) -> int:\n    \"\"\" Given a string, find out how many distinct characters (regardless of case) does it consist of\n    >>> count_distinct_characters('xyzXYZ')\n    3\n    >>> count_distinct_characters('Jerry')\n    4\n    \"\"\"\n    if not isinstance(string, str):\n        raise TypeError(\"Input must be a string\")\n    \n    if not string:\n        return 0\n    \n    seen_chars = set()\n    for char in string:\n        seen_chars.add(char.lower())\n        \n    return len(seen_chars)",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/17",
+      "success": false,
+      "trials": 3,
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/18",
+      "success": true,
+      "trials": 2,
+      "code": "def how_many_times(string: str, substring: str) -> int:\n    \"\"\" Find how many times a given substring can be found in the original string. Count overlaping cases.\n    >>> how_many_times('', 'a')\n    0\n    >>> how_many_times('aaa', 'a')\n    3\n    >>> how_many_times('aaaa', 'aa')\n    3\n    \"\"\"\n    if not isinstance(string, str) or not isinstance(substring, str):\n        raise TypeError(\"Both string and substring must be of type str.\")\n    \n    if not substring:\n        return 0 if not string else len(string) + 1 # Or some other handling for empty substring, depending on desired behavior.\n                                                     # A common interpretation is that an empty substring matches at every position and one more at the end.\n                                                     # For this problem's context (counting occurrences), returning 0 for an empty substring is often more practical\n                                                     # unless specific instructions are given. Let's stick to 0 for consistency with no matches.\n        return 0\n\n    count = 0\n    for i in range(len(string) - len(substring) + 1):\n        if string[i:i + len(substring)] == substring:\n            count += 1\n    return count",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    },
+    {
+      "task_id": "HumanEval/19",
+      "success": true,
+      "trials": 1,
+      "code": "def sort_numbers(numbers: str) -> str:\n    \"\"\" Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\n    >>> sort_numbers('three one five')\n    'one three five'\n    \"\"\"\n    if not isinstance(numbers, str):\n        raise TypeError(\"Input must be a string.\")\n    if not numbers.strip():\n        return \"\"\n\n    word_to_int = {\n        'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,\n        'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9\n    }\n    int_to_word = {\n        0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four',\n        5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'\n    }\n\n    number_words = numbers.split(' ')\n    \n    # Convert words to integers, handling invalid words\n    numeric_values = []\n    for word in number_words:\n        if word in word_to_int:\n            numeric_values.append(word_to_int[word])\n        else:\n            # If an invalid word is encountered, we could raise an error,\n            # ignore it, or include it in some way. The prompt implies valid choices only.\n            # For this problem, we'll assume only valid words are given or ignore invalid ones.\n            # If we strictly adhere to \"Valid choices are...\", then any deviation should be an error.\n            # For now, let's follow the common interpretation for such tasks: process valid ones.\n            # If the problem statement strictly means \"input will ONLY contain valid words\",\n            # then this else branch would not be hit.\n            pass\n\n    numeric_values.sort()\n\n    sorted_words = [int_to_word[num] for num in numeric_values]\n\n    return ' '.join(sorted_words)",
+      "optimized": true,
+      "agent_type": "Optimized_Temporal"
+    }
+  ],
+  "summary": {
+    "baseline_pass_rate": 85.0,
+    "optimized_pass_rate": 50.0,
+    "improvement": -35.0
+  }
+}
