@@ -1,16 +1,3 @@
-#!/bin/bash
-# Reproduce Tables 2 and 3 from saved results
-# Table 2: Long-horizon memory benchmark (dependency recall, Session-5 success)
-# Table 3: Memory efficiency — retrieval latency vs pool size
-#
-# Source data:
-#   results/seed_runs/extension1b_long_horizon.json
-#   results/seed_runs/extension2_memory_efficiency.json
-#
-# Expected output matches paper:
-#   Table 2: Temporal 50% recall / 0% S5 vs Vector 100% / 100%
-#   Table 3: Both methods flat latency; Vector ~14ms constant overhead
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
