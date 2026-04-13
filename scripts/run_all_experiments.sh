@@ -1,14 +1,3 @@
-#!/bin/bash
-# Run all main experiments from scratch
-# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
-#
-# WARNING: This will make real API calls to OpenRouter (Gemini 2.5 Flash).
-# Estimated cost: ~$0.25 for all experiments combined.
-# Estimated time: ~8 hours total (dominated by API rate limiting at 0.5s/call).
-#
-# For fast reproduction from pre-saved results use:
-#   bash scripts/reproduce_all.sh
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
