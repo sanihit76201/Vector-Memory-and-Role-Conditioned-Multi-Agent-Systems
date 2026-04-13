@@ -1,17 +1,3 @@
-#!/bin/bash
-# Reproduce Tables 4 and 5 from saved results
-# Table 4: HumanEval performance across all agents (Pass@3, Pass@1, Avg Trials, Recovery)
-# Table 5: Statistical validation (t-statistic, p-value, Cohen's d, 95% Wilson CI)
-#
-# Source data:
-#   results/seed_runs/extension2_multiagent_agent.json  (164 tasks, all agents)
-#   results/seed_runs/extension1_vector_agent.json      (164 tasks, vector agent)
-#
-# Expected output matches paper:
-#   ModularBaseline  : Pass@3=89.0%, Pass@1=81.7%, Avg Trials=1.10
-#   VectorReflexion  : Pass@3=92.7%, Pass@1=87.2%, Avg Trials=1.09
-#   MultiAgent       : Pass@3=96.3%, Pass@1=93.9%, Avg Trials=1.03
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
