@@ -1,8 +1,5 @@
 # Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration for Verbal Reinforcement Learning
 
-**Dagani Jesu Sanihit** — Manipal Institute of Technology  
-*Transactions on Machine Learning Research (under review)*
-
 ---
 
 ## Overview
@@ -218,21 +215,6 @@ result = agent.solve(task_prompt, test_suite)
 Statistical validation: E1 vs Baseline *p*=0.033 (*d*=0.127); E2 vs Baseline *p*<0.001 (*d*=0.301).
 
 ---
-
-## Citation
-
-```bibtex
-@article{sanihit2024scalablereflexion,
-  title   = {Scalable Reflexion: Semantic Memory and Multi-Agent
-             Collaboration for Verbal Reinforcement Learning},
-  author  = {Sanihit, Dagani Jesu},
-  journal = {Transactions on Machine Learning Research},
-  year    = {2024}
-}
-```
-
----
-
 ## License
 
 This repository is released under the MIT License.  
