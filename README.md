@@ -215,6 +215,15 @@ result = agent.solve(task_prompt, test_suite)
 Statistical validation: E1 vs Baseline *p*=0.033 (*d*=0.127); E2 vs Baseline *p*<0.001 (*d*=0.301).
 
 ---
+## Citation
+
+@article{anonymous2026scalablereflexion,
+  title     = {Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration for Verbal Reinforcement Learning},
+  author    = {Anonymous Author(s)},
+  journal   = {Transactions on Machine Learning Research},
+  year      = {2026}
+}
+---
 ## License
 
 This repository is released under the MIT License.  
