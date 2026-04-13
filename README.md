@@ -223,6 +223,7 @@ Statistical validation: E1 vs Baseline *p*=0.033 (*d*=0.127); E2 vs Baseline *p*
   journal   = {Transactions on Machine Learning Research},
   year      = {2026}
 }
+
 ---
 ## License
 
