@@ -1,14 +1,3 @@
-#!/bin/bash
-# Reproduce Figures 5, 6, 7, and 8 from saved results
-#
-# Figure 5: Session-level task success rate (long-horizon benchmark)
-# Figure 6: Retrieval latency vs pool size
-# Figure 7: HumanEval Pass@3 and Pass@1 bar chart with significance brackets
-# Figure 8: Pass@3 with 95% Wilson confidence intervals
-#
-# Source data: results/seed_runs/*.json
-# Outputs saved to: outputs/figures/
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

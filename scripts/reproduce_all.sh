@@ -1,14 +1,3 @@
-#!/bin/bash
-# Master reproduction script
-# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
-# Author: Dagani Jesu Sanihit, Manipal Institute of Technology
-#
-# This script reproduces all main tables and figures from the paper
-# using pre-saved result files in results/seed_runs/
-#
-# Estimated time: 2-3 minutes (reads from saved results, no API calls)
-# For full re-run from scratch: bash scripts/run_all_experiments.sh
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
