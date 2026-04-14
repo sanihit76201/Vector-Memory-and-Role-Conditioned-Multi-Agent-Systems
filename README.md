@@ -157,7 +157,7 @@ See `environment/hardware_notes.txt` for full memory and runtime details.
 ### Using pip
 
 ```bash
-git clone https://github.com/sanihit76201/Scalable-Reflexion-Semantic-Memory-and-Multi-Agent-Collaboration.git
+git clone https://github.com/(USERNAME)/Scalable-Reflexion-Semantic-Memory-and-Multi-Agent-Collaboration.git
 cd Scalable-Reflexion-Semantic-Memory-and-Multi-Agent-Collaboration
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
