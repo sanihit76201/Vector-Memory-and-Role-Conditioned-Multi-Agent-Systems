@@ -1,0 +1,82 @@
+{
+  "config": {
+    "max_size": 10,
+    "n_noise": 40,
+    "revisit_every": 5,
+    "n_signal": 3
+  },
+  "results": [
+    {
+      "policy": "fifo",
+      "scenario": "dormant",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 0,
+      "signal_total": 3,
+      "survival_rate_pct": 0.0,
+      "signal_in_top_k": 0,
+      "recall_hit_rate_pct": 0.0
+    },
+    {
+      "policy": "lru",
+      "scenario": "dormant",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 0,
+      "signal_total": 3,
+      "survival_rate_pct": 0.0,
+      "signal_in_top_k": 0,
+      "recall_hit_rate_pct": 0.0
+    },
+    {
+      "policy": "importance",
+      "scenario": "dormant",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 3,
+      "signal_total": 3,
+      "survival_rate_pct": 100.0,
+      "signal_in_top_k": 3,
+      "recall_hit_rate_pct": 100.0
+    },
+    {
+      "policy": "fifo",
+      "scenario": "revisited",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 0,
+      "signal_total": 3,
+      "survival_rate_pct": 0.0,
+      "signal_in_top_k": 0,
+      "recall_hit_rate_pct": 0.0
+    },
+    {
+      "policy": "lru",
+      "scenario": "revisited",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 1,
+      "signal_total": 3,
+      "survival_rate_pct": 33.3,
+      "signal_in_top_k": 1,
+      "recall_hit_rate_pct": 33.3
+    },
+    {
+      "policy": "importance",
+      "scenario": "revisited",
+      "max_size": 10,
+      "n_noise": 40,
+      "final_pool_size": 10,
+      "signal_survived": 3,
+      "signal_total": 3,
+      "survival_rate_pct": 100.0,
+      "signal_in_top_k": 3,
+      "recall_hit_rate_pct": 100.0
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 import time
 import random
 import logging
+import contextlib
 import numpy as np
 from functools import wraps
 from typing import Optional
@@ -75,7 +76,11 @@ class BaseLLMModel:
             'X-Title': 'Reflexion Study'
         }
         self.last_call_time = 0
-        
+
+        # ── Instrumentation counters (per-task API call + latency tracking) ──
+        self.api_call_count: int = 0
+        self.total_latency_seconds: float = 0.0
+     
         # Create session with retry strategy
         self.session = requests.Session()
         retry_strategy = Retry(
@@ -90,6 +95,37 @@ class BaseLLMModel:
         # Embedding model (lazy loaded)
         self._embed_model: Optional[SentenceTransformer] = None
     
+    def reset_stats(self) -> None:
+        """Reset call counter and latency accumulator to zero."""
+        self.api_call_count = 0
+        self.total_latency_seconds = 0.0
+
+    def get_stats(self) -> dict:
+        """Return current counters without resetting."""
+        return {
+            'api_calls':  self.api_call_count,
+            'latency_s':  round(self.total_latency_seconds, 4),
+            'latency_ms': round(self.total_latency_seconds * 1000, 2),
+        }
+
+    @contextlib.contextmanager
+    def track_task(self):
+        """Context manager: resets counters on entry, yields a stats dict
+        that is populated on exit.
+
+        Usage:
+            with llm.track_task() as stats:
+                result = agent.solve_task(task)
+            result['api_calls'] = stats['api_calls']
+            result['latency_s'] = stats['latency_s']
+        """
+        self.reset_stats()
+        stats = {}
+        try:
+            yield stats
+        finally:
+            stats.update(self.get_stats())
+
     def _wait(self):
         """Implement rate limiting between API calls."""
         elapsed = time.time() - self.last_call_time
@@ -112,6 +148,10 @@ class BaseLLMModel:
             Generated text from LLM
         """
         self._wait()
+
+        self.api_call_count += 1
+        _t0 = time.perf_counter()
+
         response = self.session.post(
             f"{self.api_base}chat/completions",
             headers=self.headers,
@@ -133,7 +173,9 @@ class BaseLLMModel:
                 part.get("text", "") if isinstance(part, dict) else str(part)
                 for part in content
             )
-        
+
+        self.total_latency_seconds += time.perf_counter() - _t0
+
         return content
     
     def get_embedding(self, text: str) -> np.ndarray:

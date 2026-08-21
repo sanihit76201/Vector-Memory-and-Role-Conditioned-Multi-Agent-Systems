@@ -1,0 +1,51 @@
+# HotpotQA Experiment Configuration
+# Paper: Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+
+# Model
+model: "google/gemini-2.5-flash"
+api_base: "https://openrouter.ai/api/v1"
+max_tokens: 512
+temperature: 0.7
+
+# Rate limiting
+inter_request_delay_s: 0.5
+max_retries: 5
+initial_backoff_s: 5.0
+backoff_factor: 2.5
+request_timeout_s: 120
+
+# Agents
+max_trials: 3
+
+# Baseline Memory (TemporalMemory)
+temporal_memory_max_size: 10
+temporal_memory_top_k: 3
+
+# VectorReflexion Memory
+vector_memory_encoder: "all-MiniLM-L6-v2"
+vector_memory_embedding_dim: 384
+vector_memory_max_size: 500
+vector_memory_top_k: 5
+
+# MultiAgent Memory
+multiagent_memory_max_size: 500
+multiagent_top_k_per_agent: 3
+multiagent_role_prefix: true
+
+# Dataset
+dataset: "hotpot_qa"
+dataset_config: "distractor"
+split: "validation"
+num_tasks: 100
+
+# Evaluation metrics
+metrics:
+  - exact_match_pct
+  - f1_pct
+  - pass_rate_pct
+  - pass_at_1_pct
+  - avg_trials
+  - recovery_rate_pct
+
+# Output
+output_file: "results/seed_runs/hotpotqa_results.json"

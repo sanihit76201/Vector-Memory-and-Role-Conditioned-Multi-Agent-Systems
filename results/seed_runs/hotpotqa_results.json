@@ -1,0 +1,452 @@
+{
+  "dataset": "HotpotQA",
+  "num_tasks": 20,
+  "task_ids": [
+    "HotpotQA/0",
+    "HotpotQA/1",
+    "HotpotQA/2",
+    "HotpotQA/3",
+    "HotpotQA/4",
+    "HotpotQA/5",
+    "HotpotQA/6",
+    "HotpotQA/7",
+    "HotpotQA/8",
+    "HotpotQA/9",
+    "HotpotQA/10",
+    "HotpotQA/11",
+    "HotpotQA/12",
+    "HotpotQA/13",
+    "HotpotQA/14",
+    "HotpotQA/15",
+    "HotpotQA/16",
+    "HotpotQA/17",
+    "HotpotQA/18",
+    "HotpotQA/19"
+  ],
+  "results": {
+    "hotpotqa_baseline": [
+      {
+        "task_id": "HotpotQA/0",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "yes",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/1",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Chief of Protocol",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/2",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Animorphs",
+        "gold": "Animorphs",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/3",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "no",
+        "gold": "no",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/4",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Greenwich Village, New York City",
+        "gold": "Greenwich Village, New York City",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/5",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "YG Entertainment",
+        "gold": "YG Entertainment",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/6",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Eenasul Fateh",
+        "gold": "Eenasul Fateh",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/7",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "3,677 seated",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/8",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Terry Richardson",
+        "gold": "Terry Richardson",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/9",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Yes",
+        "gold": "yes",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/10",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Kansas Song",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/11",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "David Weissman",
+        "gold": "David Weissman",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/12",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "1999",
+        "gold": "1999",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/13",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "no",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/14",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "from 1986 to 2013",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/15",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "9,984",
+        "gold": "9,984",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/16",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "North Atlantic Conference",
+        "gold": "the North Atlantic Conference",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/17",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "yes",
+        "gold": "yes",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/18",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "1969 until 1974",
+        "gold": "1969 until 1974",
+        "agent_type": "HotpotQA_Baseline"
+      },
+      {
+        "task_id": "HotpotQA/19",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Robert Erskine Childers DSC",
+        "agent_type": "HotpotQA_Baseline"
+      }
+    ],
+    "hotpotqa_multiagent": [
+      {
+        "task_id": "HotpotQA/0",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "yes",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/1",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Chief of Protocol",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/2",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Animorphs",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/3",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "no",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/4",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Greenwich Village, New York City",
+        "gold": "Greenwich Village, New York City",
+        "shared_memory_size": 3,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/5",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "YG Entertainment",
+        "gold": "YG Entertainment",
+        "shared_memory_size": 3,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/6",
+        "success": true,
+        "trials": 3,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Eenasul Fateh",
+        "gold": "Eenasul Fateh",
+        "shared_memory_size": 6,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/7",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "3,677 seated",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/8",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Terry Richardson",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/9",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "yes",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/10",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Kansas Song",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/11",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "David Weissman",
+        "gold": "David Weissman",
+        "shared_memory_size": 3,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/12",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "1999",
+        "gold": "1999",
+        "shared_memory_size": 3,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/13",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "no",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/14",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "from 1986 to 2013",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/15",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "9,984",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/16",
+        "success": true,
+        "trials": 1,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "North Atlantic Conference",
+        "gold": "the North Atlantic Conference",
+        "shared_memory_size": 0,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/17",
+        "success": true,
+        "trials": 2,
+        "em": 1.0,
+        "f1": 1.0,
+        "prediction": "Yes",
+        "gold": "yes",
+        "shared_memory_size": 3,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/18",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "1969 until 1974",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      },
+      {
+        "task_id": "HotpotQA/19",
+        "success": false,
+        "trials": 3,
+        "em": 0.0,
+        "f1": 0.0,
+        "prediction": "",
+        "gold": "Robert Erskine Childers DSC",
+        "shared_memory_size": 9,
+        "agent_type": "HotpotQA_MultiAgent"
+      }
+    ]
+  }
+}
