@@ -405,7 +405,8 @@ paper defaults where applicable.
   title   = {Vector Memory and Role-Conditioned Multi-Agent Systems:
              Two Extensions to Improve Reflexion for Language Model
              Self-Improvement},
-  author  = {Dagani Jesu Sanihit and Sanjay Singh},`n  journal = {Transactions on Machine Learning Research},
+  author  = {Dagani Jesu Sanihit and Sanjay Singh},
+  journal = {Transactions on Machine Learning Research},
   year    = {2026}
 }
 ```
