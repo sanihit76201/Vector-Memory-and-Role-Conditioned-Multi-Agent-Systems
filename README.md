@@ -2,7 +2,6 @@
 
 **Dagani Jesu Sanihit** and **Sanjay Singh** · Manipal Institute of Technology, Udupi, Karnataka, India
 
-**Dagani Jesu Sanihit** and **Sanjay Singh** · Manipal Institute of Technology, Udupi, Karnataka, India
 
 This repository contains the official implementation for the paper **"Vector Memory and Role-Conditioned Multi-Agent Systems: Two Extensions to Improve Reflexion for Language Model Self-Improvement"**, which proposes two orthogonal extensions to the [Reflexion](https://arxiv.org/abs/2303.11366) framework (Shinn et al., NeurIPS 2023).
 
@@ -161,8 +160,8 @@ See `environment/hardware_notes.txt` for full memory and runtime details.
 ### Using pip
 
 ```bash
-git clone https://github.com/sanihit76201/Scalable-Reflexion-Semantic-Memory-and-Multi-Agent-Collaboration.git
-cd Scalable-Reflexion-Semantic-Memory-and-Multi-Agent-Collaboration
+git clone https://github.com/sanihit76201/Vector-Memory-and-Role-Conditioned-Multi-Agent-Systems.git
+cd Vector-Memory-and-Role-Conditioned-Multi-Agent-Systems
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r environment/requirements.txt
@@ -406,7 +405,7 @@ paper defaults where applicable.
   title   = {Vector Memory and Role-Conditioned Multi-Agent Systems:
              Two Extensions to Improve Reflexion for Language Model
              Self-Improvement},
-  journal = {Transactions on Machine Learning Research},
+  author  = {Dagani Jesu Sanihit and Sanjay Singh},`n  journal = {Transactions on Machine Learning Research},
   year    = {2026}
 }
 ```
