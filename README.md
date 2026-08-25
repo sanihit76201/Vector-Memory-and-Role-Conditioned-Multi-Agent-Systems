@@ -1,4 +1,6 @@
-# Scalable Reflexion: Semantic Memory and Multi-Agent Collaboration
+# Vector Memory and Role-Conditioned Multi-Agent Systems: Two Extensions to Improve Reflexion for Language Model Self-Improvement
+
+**Dagani Jesu Sanihit** and **Sanjay Singh** · Manipal Institute of Technology, Udupi, Karnataka, India
 
 This repository contains the official implementation for the paper **"Vector Memory and Role-Conditioned Multi-Agent Systems: Two Extensions to Improve Reflexion for Language Model Self-Improvement"**, which proposes two orthogonal extensions to the [Reflexion](https://arxiv.org/abs/2303.11366) framework (Shinn et al., NeurIPS 2023).
 
@@ -398,7 +400,7 @@ paper defaults where applicable.
 ## Citation
 
 ```bibtex
-@article{anonymous2026scalablereflexion,
+@article{sanihit2026vectormemory,
   title   = {Vector Memory and Role-Conditioned Multi-Agent Systems:
              Two Extensions to Improve Reflexion for Language Model
              Self-Improvement},
