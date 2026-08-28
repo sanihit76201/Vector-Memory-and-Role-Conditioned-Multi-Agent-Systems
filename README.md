@@ -1,6 +1,6 @@
 # Vector Memory and Role-Conditioned Multi-Agent Systems: Two Extensions to Improve Reflexion for Language Model Self-Improvement
 
-**Dagani Jesu Sanihit** and **Sanjay Singh** � Manipal Institute of Technology, Udupi, Karnataka, India
+**Dagani Jesu Sanihit** and **Sanjay Singh** · Manipal Institute of Technology, Udupi, Karnataka, India
 
 
 This repository contains the official implementation for the paper **"Vector Memory and Role-Conditioned Multi-Agent Systems: Two Extensions to Improve Reflexion for Language Model Self-Improvement"**, which proposes two orthogonal extensions to the [Reflexion](https://arxiv.org/abs/2303.11366) framework (Shinn et al., NeurIPS 2023).
@@ -13,10 +13,10 @@ This repository contains the official implementation for the paper **"Vector Mem
 
 | Limitation | Our Solution |
 |---|---|
-| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory` — Sentence-BERT embeddings with cosine-similarity retrieval |
-| Single agent conflates generation, critique, and verification | **Extension 2:** Generator–Critic–Verifier pipeline with shared role-conditioned memory pool |
+| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory` â€” Sentence-BERT embeddings with cosine-similarity retrieval |
+| Single agent conflates generation, critique, and verification | **Extension 2:** Generatorâ€“Criticâ€“Verifier pipeline with shared role-conditioned memory pool |
 
-Both extensions operate **purely at inference time** — no fine-tuning or gradient updates required.
+Both extensions operate **purely at inference time** â€” no fine-tuning or gradient updates required.
 
 ---
 
@@ -27,24 +27,24 @@ Both extensions operate **purely at inference time** — no fine-tuning or gradi
 | Agent | Pass@3 | Pass@1 | Avg Trials | Recovery |
 |---|---|---|---|---|
 | ModularBaseline | 89.0% | 81.7% | 1.10 | 40.0% |
-| Original Reflexion† | 93.3% | 86.0% | 1.10 | 52.2% |
+| Original Reflexionâ€  | 93.3% | 86.0% | 1.10 | 52.2% |
 | VectorReflexion (E1) | 92.7% | 87.2% | 1.09 | 42.9% |
 | **MultiAgentReflexion (E2)** | **96.3%** | **93.9%** | **1.03** | **40.0%** |
 
-†Original Reflexion contains a code-cleaning bug neutralised by certain model outputs.
+â€ Original Reflexion contains a code-cleaning bug neutralised by certain model outputs.
 
 ### Statistical Validation
 
-| Comparison | ΔPass@3 | t | p | Cohen's d |
+| Comparison | Î”Pass@3 | t | p | Cohen's d |
 |---|---|---|---|---|
 | E1 vs Baseline | +3.7 pp | 2.144 | 0.033* | 0.127 |
 | E2 vs Baseline | +7.9 pp | 3.746 | <0.001*** | 0.301 |
 
-95% Wilson CIs: Baseline [84.2%, 93.9%] · E1 [88.7%, 96.7%] · E2 [93.4%, 99.2%]
+95% Wilson CIs: Baseline [84.2%, 93.9%] Â· E1 [88.7%, 96.7%] Â· E2 [93.4%, 99.2%]
 
 ### Long-Horizon Memory Benchmark (5 sessions, 13 tasks, 9 distractors)
 
-| Metric | Temporal (FIFO) | VectorEpisodicMemory | Δ |
+| Metric | Temporal (FIFO) | VectorEpisodicMemory | Î” |
 |---|---|---|---|
 | Dependency Recall | 50.0% | 100.0% | +50.0 pp |
 | Session-5 Success | 0.0% | 100.0% | +100 pp |
@@ -56,38 +56,38 @@ Zero variance across all 3 independent trials for both conditions.
 
 ## Repository Structure
 
-```
+```text
 Vector-Memory-and-Role-Conditioned-Multi-Agent-Systems/
 ├── reflexion/
 │   ├── agents/
 │   │   ├── __init__.py
-│   │   ├── base.py              # ReflexionAgent (modular baseline)
-│   │   ├── original.py          # OriginalReflexionAgent (Shinn et al. replica)
-│   │   ├── vector.py            # VectorReflexionAgent (Extension 1)
-│   │   └── multiagent.py        # MultiAgentReflexion (Extension 2)
+│   │   ├── base.py               # ReflexionAgent (modular baseline)
+│   │   ├── original.py           # OriginalReflexionAgent (Shinn et al. replica)
+│   │   ├── vector.py             # VectorReflexionAgent (Extension 1)
+│   │   └── multiagent.py         # MultiAgentReflexion (Extension 2)
 │   ├── memory/
 │   │   ├── __init__.py
-│   │   ├── base.py              # BaseMemory abstract class
-│   │   ├── temporal.py          # TemporalMemory (FIFO baseline)
-│   │   └── vector.py            # VectorEpisodicMemory (Extension 1)
+│   │   ├── base.py               # BaseMemory abstract class
+│   │   ├── temporal.py           # TemporalMemory (FIFO baseline)
+│   │   └── vector.py             # VectorEpisodicMemory (Extension 1)
 │   ├── benchmarks/
 │   │   ├── __init__.py
-│   │   └── humaneval.py         # HumanEval dataset loader (164 tasks)
+│   │   └── humaneval.py          # HumanEval dataset loader (164 tasks)
 │   ├── evaluators/
 │   │   ├── __init__.py
-│   │   └── code.py              # ObjectiveCodeEvaluator (subprocess, 10s timeout)
+│   │   └── code.py               # ObjectiveCodeEvaluator (subprocess, 10s timeout)
 │   ├── reflection/
-│   │   └── optimizer.py         # Reflection generation utilities
-│   ├── config.py                # SecureConfigLoader (env-based API key management)
-│   ├── llm.py                   # BaseLLMModel with exponential backoff + embeddings
-│   └── memory.py                # SharedMemoryPool for multi-agent use
+│   │   └── optimizer.py          # Reflection generation utilities
+│   ├── config.py                 # SecureConfigLoader (env-based API key management)
+│   ├── llm.py                    # BaseLLMModel with exponential backoff + embeddings
+│   └── memory.py                 # SharedMemoryPool for multi-agent use
 │
 ├── experiments/
 │   ├── extension1_vector_memory/
 │   │   ├── long_horizon_benchmark.py  # 5-session, 13-task long-horizon benchmark
-│   │   ├── memory_efficiency.py       # Retrieval latency vs pool size (100–50k)
-│   │   ├── reasoning_benchmark.py     # Reasoning quality analysis
-│   │   └── retrieval_analysis.py      # Retrieval quality (precision@5)
+│   │   ├── memory_efficiency.py        # Retrieval latency vs pool size (100–50k)
+│   │   ├── reasoning_benchmark.py      # Reasoning quality analysis
+│   │   └── retrieval_analysis.py       # Retrieval quality (precision@5)
 │   ├── make_results_table.py          # Generate paper tables from saved results
 │   ├── run_comparison.py              # Main benchmark entrypoint (Extensions 1 & 2)
 │   ├── run_humaneval.py               # Standalone HumanEval runner
@@ -102,9 +102,9 @@ Vector-Memory-and-Role-Conditioned-Multi-Agent-Systems/
 ├── scripts/
 │   ├── reproduce_all.sh               # Master: reproduce all tables and figures
 │   ├── reproduce_humaneval_tables.sh  # Tables 4 and 5
-│   ├── reproduce_memory_tables.sh     # Tables 2 and 3
+│   ├── reproduce_memory_tables.sh      # Tables 2 and 3
 │   ├── reproduce_figures.sh           # Figures 5, 6, 7, 8
-│   └── run_all_experiments.sh         # Full rerun from scratch (~8 hours)
+│   └── run_all_experiments.sh          # Full rerun from scratch (~8 hours)
 │
 ├── data/
 │   └── dataset_instructions.txt       # Dataset access and preprocessing notes
@@ -132,7 +132,6 @@ Vector-Memory-and-Role-Conditioned-Multi-Agent-Systems/
 ├── .gitignore
 └── README.md
 ```
-
 ---
 
 ## System Requirements
@@ -144,7 +143,7 @@ All experiments were run on a **standard CPU machine**. No GPU is required.
 - CPU: Any modern CPU
 - RAM: 8 GB recommended
 - Storage: ~500 MB (embedding model downloaded automatically on first run)
-- GPU: Not required — embeddings run on CPU via PyTorch
+- GPU: Not required â€” embeddings run on CPU via PyTorch
 
 See `environment/hardware_notes.txt` for full memory and runtime details.
 
@@ -192,7 +191,7 @@ RATE_LIMIT_DELAY=0.5
 > **Never commit your `.env` file.** It is listed in `.gitignore`.
 
 All LLM calls use **Google Gemini 2.5 Flash** via [OpenRouter](https://openrouter.ai).
-Sentence-BERT embeddings (`all-MiniLM-L6-v2`, ~90 MB) run locally on CPU — no GPU required.
+Sentence-BERT embeddings (`all-MiniLM-L6-v2`, ~90 MB) run locally on CPU â€” no GPU required.
 The embedding model is downloaded automatically from HuggingFace on first run.
 
 ---
@@ -202,7 +201,7 @@ The embedding model is downloaded automatically from HuggingFace on first run.
 The HumanEval dataset (`HumanEval.jsonl.gz`) is included in the repository root.
 No manual download is required.
 
-The long-horizon memory benchmark is fully procedural — generated at runtime with no
+The long-horizon memory benchmark is fully procedural â€” generated at runtime with no
 external data needed.
 
 See `data/dataset_instructions.txt` for full details on both benchmarks.
@@ -269,7 +268,7 @@ cd experiments/extension1_vector_memory
 python memory_efficiency.py
 ```
 
-Measures retrieval latency across pool sizes 100–50,000. Takes ~2 minutes.
+Measures retrieval latency across pool sizes 100â€“50,000. Takes ~2 minutes.
 
 ---
 
@@ -297,10 +296,10 @@ At retrieval time, cosine similarity is computed between the current task query 
 reflections, returning the top-k most semantically relevant ones regardless of when they were stored:
 
 ```
-sim(q, rᵢ) = φ(q)ᵀ φ(rᵢ) / (‖φ(q)‖ · ‖φ(rᵢ)‖)
+sim(q, ráµ¢) = Ï†(q)áµ€ Ï†(ráµ¢) / (â€–Ï†(q)â€– Â· â€–Ï†(ráµ¢)â€–)
 ```
 
-Retrieval overhead is ~14 ms constant up to 50,000 entries — less than 2.8% of LLM call latency.
+Retrieval overhead is ~14 ms constant up to 50,000 entries â€” less than 2.8% of LLM call latency.
 
 ```python
 from reflexion.memory.vector import VectorEpisodicMemory
@@ -317,13 +316,13 @@ relevant = memory.get_relevant_memories("current task prompt", k=5)
 Three specialised agents share a single `VectorEpisodicMemory` pool:
 
 ```
-Task → [Generator] → candidate code c
-             ↓
-        [Critic] → structured critique (no code generation)
-             ↓
-       [Verifier] → final submission c*
-             ↓
-        Evaluator → Pass / Fail → all three agents reflect
+Task â†’ [Generator] â†’ candidate code c
+             â†“
+        [Critic] â†’ structured critique (no code generation)
+             â†“
+       [Verifier] â†’ final submission c*
+             â†“
+        Evaluator â†’ Pass / Fail â†’ all three agents reflect
 ```
 
 On failure, all three agents write role-prefixed reflections (`[Generator]`, `[Critic]`,
@@ -348,7 +347,7 @@ result = agent.solve_task(task)
 | LLM | Temperature | 0.7 |
 | LLM | Max tokens | 2048 |
 | LLM | Inter-request delay | 0.5 s |
-| Backoff | Max retries / Initial delay / Factor | 5 / 5 s / 2.5× |
+| Backoff | Max retries / Initial delay / Factor | 5 / 5 s / 2.5Ã— |
 | TemporalMemory | Buffer size / Top-k / Eviction | 10 / 3 / FIFO |
 | VectorEpisodicMemory | Encoder | `all-MiniLM-L6-v2` |
 | VectorEpisodicMemory | Embedding dim / Max pool / Top-k | 384 / 1,000 (2,000 for HumanEval) / 5 |
@@ -380,7 +379,7 @@ paper defaults where applicable.
 - The embedding model (`all-MiniLM-L6-v2`, ~90 MB) is downloaded automatically on first run
 - The long-horizon benchmark is fully deterministic given the fixed task sequence
 - `VectorEpisodicMemory` max_size is set to 2,000 for HumanEval to accommodate
-  the full reflection budget of 164 × 3 × 3 = 1,476 role-prefixed entries
+  the full reflection budget of 164 Ã— 3 Ã— 3 = 1,476 role-prefixed entries
 
 ---
 
