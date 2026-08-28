@@ -13,10 +13,10 @@ This repository contains the official implementation for the paper **"Vector Mem
 
 | Limitation | Our Solution |
 |---|---|
-| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory` â€” Sentence-BERT embeddings with cosine-similarity retrieval |
-| Single agent conflates generation, critique, and verification | **Extension 2:** Generatorâ€“Criticâ€“Verifier pipeline with shared role-conditioned memory pool |
+| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory — Sentence-BERT embeddings with cosine-similarity retrieval |
+| Single agent conflates generation, critique, and verification | **Extension 2:** Generator-Critic-Verifier pipeline with shared role-conditioned memory pool |
 
-Both extensions operate **purely at inference time** â€” no fine-tuning or gradient updates required.
+Both extensions operate **purely at inference time**, no fine-tuning or gradient updates required.
 
 ---
 
@@ -35,12 +35,12 @@ Both extensions operate **purely at inference time** â€” no fine-tuning or 
 
 ### Statistical Validation
 
-| Comparison | Î”Pass@3 | t | p | Cohen's d |
+| Comparison | ΔPass@3 | t | p | Cohen's d |
 |---|---|---|---|---|
 | E1 vs Baseline | +3.7 pp | 2.144 | 0.033* | 0.127 |
 | E2 vs Baseline | +7.9 pp | 3.746 | <0.001*** | 0.301 |
 
-95% Wilson CIs: Baseline [84.2%, 93.9%] Â· E1 [88.7%, 96.7%] Â· E2 [93.4%, 99.2%]
+95% Wilson CIs: Baseline [84.2%, 93.9%] · E1 [88.7%, 96.7%] · E2 [93.4%, 99.2%]
 
 ### Long-Horizon Memory Benchmark (5 sessions, 13 tasks, 9 distractors)
 
@@ -143,7 +143,7 @@ All experiments were run on a **standard CPU machine**. No GPU is required.
 - CPU: Any modern CPU
 - RAM: 8 GB recommended
 - Storage: ~500 MB (embedding model downloaded automatically on first run)
-- GPU: Not required â€” embeddings run on CPU via PyTorch
+- GPU: Not required-” embeddings run on CPU via PyTorch
 
 See `environment/hardware_notes.txt` for full memory and runtime details.
 
@@ -268,7 +268,7 @@ cd experiments/extension1_vector_memory
 python memory_efficiency.py
 ```
 
-Measures retrieval latency across pool sizes 100â€“50,000. Takes ~2 minutes.
+Measures retrieval latency across pool sizes 100-50,000. Takes ~2 minutes.
 
 ---
 
@@ -296,7 +296,7 @@ At retrieval time, cosine similarity is computed between the current task query 
 reflections, returning the top-k most semantically relevant ones regardless of when they were stored:
 
 ```
-sim(q, ráµ¢) = Ï†(q)áµ€ Ï†(ráµ¢) / (â€–Ï†(q)â€– Â· â€–Ï†(ráµ¢)â€–)
+sim(q, ri) = phi(q)^T phi(ri) / (||phi(q)|| · ||phi(ri)||)
 ```
 
 Retrieval overhead is ~14 ms constant up to 50,000 entries â€” less than 2.8% of LLM call latency.
@@ -316,13 +316,13 @@ relevant = memory.get_relevant_memories("current task prompt", k=5)
 Three specialised agents share a single `VectorEpisodicMemory` pool:
 
 ```
-Task â†’ [Generator] â†’ candidate code c
-             â†“
-        [Critic] â†’ structured critique (no code generation)
-             â†“
-       [Verifier] â†’ final submission c*
-             â†“
-        Evaluator â†’ Pass / Fail â†’ all three agents reflect
+Task --> [Generator] --> candidate code c
+               |
+           [Critic] --> structured critique
+               |
+          [Verifier] --> final submission c*
+               |
+           Evaluator --> Pass / Fail
 ```
 
 On failure, all three agents write role-prefixed reflections (`[Generator]`, `[Critic]`,
@@ -347,7 +347,7 @@ result = agent.solve_task(task)
 | LLM | Temperature | 0.7 |
 | LLM | Max tokens | 2048 |
 | LLM | Inter-request delay | 0.5 s |
-| Backoff | Max retries / Initial delay / Factor | 5 / 5 s / 2.5Ã— |
+| Backoff | Max retries / Initial delay / Factor | 5 / 5 s / 2.5x |
 | TemporalMemory | Buffer size / Top-k / Eviction | 10 / 3 / FIFO |
 | VectorEpisodicMemory | Encoder | `all-MiniLM-L6-v2` |
 | VectorEpisodicMemory | Embedding dim / Max pool / Top-k | 384 / 1,000 (2,000 for HumanEval) / 5 |
@@ -379,7 +379,7 @@ paper defaults where applicable.
 - The embedding model (`all-MiniLM-L6-v2`, ~90 MB) is downloaded automatically on first run
 - The long-horizon benchmark is fully deterministic given the fixed task sequence
 - `VectorEpisodicMemory` max_size is set to 2,000 for HumanEval to accommodate
-  the full reflection budget of 164 Ã— 3 Ã— 3 = 1,476 role-prefixed entries
+  the full reflection budget of 164 x 3 x 3 = 1,476 role-prefixed entries
 
 ---
 
