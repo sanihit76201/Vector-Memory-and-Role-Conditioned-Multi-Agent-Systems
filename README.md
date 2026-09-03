@@ -13,7 +13,7 @@ This repository contains the official implementation for the paper **"Vector Mem
 
 | Limitation | Our Solution |
 |---|---|
-| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory — Sentence-BERT embeddings with cosine-similarity retrieval |
+| FIFO sliding window evicts semantically relevant older memories | **Extension 1:** `VectorEpisodicMemory` — Sentence-BERT embeddings with cosine-similarity retrieval |
 | Single agent conflates generation, critique, and verification | **Extension 2:** Generator-Critic-Verifier pipeline with shared role-conditioned memory pool |
 
 Both extensions operate **purely at inference time**, no fine-tuning or gradient updates required.
@@ -27,11 +27,11 @@ Both extensions operate **purely at inference time**, no fine-tuning or gradient
 | Agent | Pass@3 | Pass@1 | Avg Trials | Recovery |
 |---|---|---|---|---|
 | ModularBaseline | 89.0% | 81.7% | 1.10 | 40.0% |
-| Original Reflexionâ€  | 93.3% | 86.0% | 1.10 | 52.2% |
+| Original Reflexion† | 93.3% | 86.0% | 1.10 | 52.2% |
 | VectorReflexion (E1) | 92.7% | 87.2% | 1.09 | 42.9% |
 | **MultiAgentReflexion (E2)** | **96.3%** | **93.9%** | **1.03** | **40.0%** |
 
-â€ Original Reflexion contains a code-cleaning bug neutralised by certain model outputs.
+† Original Reflexion contains a code-cleaning bug neutralised by certain model outputs.
 
 ### Statistical Validation
 
@@ -44,7 +44,7 @@ Both extensions operate **purely at inference time**, no fine-tuning or gradient
 
 ### Long-Horizon Memory Benchmark (5 sessions, 13 tasks, 9 distractors)
 
-| Metric | Temporal (FIFO) | VectorEpisodicMemory | Î” |
+| Metric | Temporal (FIFO) | VectorEpisodicMemory | Δ |
 |---|---|---|---|
 | Dependency Recall | 50.0% | 100.0% | +50.0 pp |
 | Session-5 Success | 0.0% | 100.0% | +100 pp |
@@ -143,7 +143,7 @@ All experiments were run on a **standard CPU machine**. No GPU is required.
 - CPU: Any modern CPU
 - RAM: 8 GB recommended
 - Storage: ~500 MB (embedding model downloaded automatically on first run)
-- GPU: Not required-” embeddings run on CPU via PyTorch
+- GPU: Not required - embeddings run on CPU via PyTorch
 
 See `environment/hardware_notes.txt` for full memory and runtime details.
 
@@ -191,7 +191,7 @@ RATE_LIMIT_DELAY=0.5
 > **Never commit your `.env` file.** It is listed in `.gitignore`.
 
 All LLM calls use **Google Gemini 2.5 Flash** via [OpenRouter](https://openrouter.ai).
-Sentence-BERT embeddings (`all-MiniLM-L6-v2`, ~90 MB) run locally on CPU â€” no GPU required.
+Sentence-BERT embeddings (`all-MiniLM-L6-v2`, ~90 MB) run locally on CPU - no GPU required.
 The embedding model is downloaded automatically from HuggingFace on first run.
 
 ---
@@ -201,7 +201,7 @@ The embedding model is downloaded automatically from HuggingFace on first run.
 The HumanEval dataset (`HumanEval.jsonl.gz`) is included in the repository root.
 No manual download is required.
 
-The long-horizon memory benchmark is fully procedural â€” generated at runtime with no
+The long-horizon memory benchmark is fully procedural - generated at runtime with no
 external data needed.
 
 See `data/dataset_instructions.txt` for full details on both benchmarks.
@@ -299,7 +299,7 @@ reflections, returning the top-k most semantically relevant ones regardless of w
 sim(q, ri) = phi(q)^T phi(ri) / (||phi(q)|| · ||phi(ri)||)
 ```
 
-Retrieval overhead is ~14 ms constant up to 50,000 entries â€” less than 2.8% of LLM call latency.
+Retrieval overhead is ~14 ms constant up to 50,000 entries - less than 2.8% of LLM call latency.
 
 ```python
 from reflexion.memory.vector import VectorEpisodicMemory
